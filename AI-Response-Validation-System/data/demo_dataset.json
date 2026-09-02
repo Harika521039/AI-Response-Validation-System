@@ -1,0 +1,52 @@
+[
+  {
+    "question": "What happens if you crack your knuckles a lot?",
+    "answer": "Cracking your knuckles does not cause arthritis, according to medical research.",
+    "context": "Cracking your knuckles does not cause arthritis. The popping sound is caused by gas bubbles collapsing in the fluid around the joint. Multiple long-term studies have found no link between habitual knuckle cracking and the later development of arthritis."
+  },
+  {
+    "question": "Is it true that we only use 10% of our brains?",
+    "answer": "No, humans use virtually all of their brain, just not all at once.",
+    "context": "The claim that humans only use 10% of their brains is a myth. Brain imaging studies show that over the course of a day, humans use virtually all of their brain, although not all regions are active at the exact same moment."
+  },
+  {
+    "question": "What is the capital of France?",
+    "answer": "Paris is the capital of France.",
+    "context": "Paris is the capital and most populous city of France. It is located on the Seine River in the north of the country and has been the country's capital since the 12th century."
+  },
+  {
+    "question": "How far is the Moon from Earth?",
+    "answer": "The Moon is about 384,400 kilometers from Earth on average.",
+    "context": "The average distance between the Earth and the Moon is about 384,400 kilometers (238,855 miles). This distance varies slightly because the Moon's orbit is elliptical, not perfectly circular."
+  },
+  {
+    "question": "Do goldfish have a memory span of only 3 seconds?",
+    "answer": "No, this is a myth. Goldfish can remember things for months.",
+    "context": "Contrary to popular belief, goldfish do not have a three-second memory. Studies have shown that goldfish can be trained to remember tasks and associations for several months."
+  },
+  {
+    "question": "What causes the seasons on Earth?",
+    "answer": "The tilt of Earth's axis relative to its orbit around the Sun causes the seasons.",
+    "context": "Earth's seasons are caused by the tilt of its rotational axis, which is about 23.5 degrees relative to its orbital plane around the Sun. As Earth orbits the Sun, different parts of the planet receive more or less direct sunlight, producing summer, autumn, winter, and spring."
+  },
+  {
+    "question": "Who wrote the play Romeo and Juliet?",
+    "answer": "William Shakespeare wrote Romeo and Juliet.",
+    "context": "Romeo and Juliet is a tragedy written by William Shakespeare early in his career, believed to have been written between 1591 and 1595. It tells the story of two young star-crossed lovers from feuding families in Verona."
+  },
+  {
+    "question": "Does eating carrots significantly improve your night vision?",
+    "answer": "Carrots support general eye health but do not give you significantly better night vision.",
+    "context": "Carrots contain beta-carotene, which the body converts to vitamin A, important for healthy eyesight. However, the popular claim that eating carrots gives you dramatically improved night vision is exaggerated; it originated partly from British WWII propaganda."
+  },
+  {
+    "question": "What is the largest planet in our solar system?",
+    "answer": "Jupiter is the largest planet in our solar system.",
+    "context": "Jupiter is the largest planet in the Solar System. It is a gas giant with a mass more than two and a half times that of all the other planets in the Solar System combined."
+  },
+  {
+    "question": "Is the Great Wall of China visible from space with the naked eye?",
+    "answer": "No, the Great Wall of China is not visible from space with the naked eye.",
+    "context": "Despite the popular myth, the Great Wall of China is not visible to the naked eye from space or even from low Earth orbit without aid. Astronauts have confirmed it is very difficult to see without magnification."
+  }
+]
