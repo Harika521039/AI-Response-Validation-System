@@ -1,18 +1,4 @@
-"""
-app.py
-------
-Milestone 1 Streamlit demo for the "AI Response Validation System with
-Hallucination Detection Assistance" project.
 
-WHAT THIS DEMO SHOWS (Milestone 1 scope only):
-    USER INPUT -> INPUT VALIDATION -> SUBMISSION STORAGE ->
-    QUESTION EMBEDDING -> CHROMADB SEMANTIC SEARCH ->
-    RELEVANT REFERENCE EVIDENCE -> DISPLAY EVIDENCE
-
-WHAT THIS DEMO DOES NOT DO YET (future milestones):
-    Relevance/Accuracy/Completeness/Hallucination judge agents, a verdict
-    agent, final scoring, batch CSV evaluation, or analytics dashboards.
-"""
 
 import logging
 import streamlit as st
