@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+data/submissions.db
+chroma_db/*
+!chroma_db/.gitkeep
+.venv/
+venv/
+.env
