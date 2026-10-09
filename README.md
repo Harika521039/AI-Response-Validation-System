@@ -1,297 +1,220 @@
 # AI Response Validation System with Hallucination Detection Assistance
 
-A multi-agent validation framework for evaluating AI-generated responses against reference evidence. The system integrates Milestone 1 (RAG Retrieval Foundation), Milestone 2 (Judge Agents and Consistency Validation), Milestone 3 (Completeness Judge, Verdict Agent, and Resilient Batch Evaluation), and Milestone 4 (Analytics Scoring Dashboard and PDF Report Export).
+**Live Demo:** [Open the AI Response Validation System](https://ai-response-validation-system-harika.streamlit.app/)
 
----
+A multi-agent AI validation framework designed to evaluate AI-generated responses for accuracy, relevance, completeness, consistency, and potential hallucinations using Retrieval-Augmented Generation (RAG), evidence-based evaluation, and intelligent judge agents.
 
-## 1. Quick Start
+## Overview
 
-### Installation
+The AI Response Validation System helps assess whether AI-generated answers are supported by reference evidence. It retrieves relevant information from a knowledge base and evaluates responses using multiple validation components.
+
+The project integrates four milestones, covering retrieval, judge agents, completeness and verdict assessment, batch evaluation, analytics, and PDF report generation.
+
+## Key Features
+
+| Feature                   | Description                                                                 |
+| ------------------------- | --------------------------------------------------------------------------- |
+| Hallucination Detection   | Identifies potentially unsupported or incorrect statements in AI responses. |
+| RAG-Based Retrieval       | Retrieves relevant reference evidence from a knowledge base.                |
+| Multi-Agent Evaluation    | Uses multiple judge components to assess AI-generated responses.            |
+| Accuracy Assessment       | Evaluates whether the response agrees with available evidence.              |
+| Relevance Assessment      | Checks how well the response addresses the question.                        |
+| Completeness Assessment   | Evaluates whether important information is included.                        |
+| Verdict Generation        | Combines evaluation results to produce an overall assessment.               |
+| Single Evaluation         | Evaluates one AI-generated response at a time.                              |
+| Batch Evaluation          | Processes multiple responses in a batch.                                    |
+| Evaluation History        | Stores and displays previous evaluation results.                            |
+| Analytics Dashboard       | Displays evaluation statistics and performance information.                 |
+| PDF Report Export         | Generates downloadable evaluation reports.                                  |
+| Knowledge Base Management | Supports retrieval-based evidence grounding.                                |
+| Testing and System Status | Provides access to testing information and system status.                   |
+
+## System Architecture
+
+The system follows a retrieval and evaluation workflow.
+
+```text
+             User Input
+                 |
+                 v
+        Streamlit Web Interface
+                 |
+                 v
+       Input and Response Processing
+                 |
+                 v
+       RAG-Based Evidence Retrieval
+                 |
+                 v
+          Vector Database
+                 |
+                 v
+          Judge Components
+                 |
+        +--------+--------+
+        |        |        |
+        v        v        v
+     Accuracy Relevance Completeness
+        |        |        |
+        +--------+--------+
+                 |
+                 v
+          Verdict Generation
+                 |
+                 v
+        Evaluation Results
+                 |
+          +------+------+
+          |             |
+          v             v
+      Analytics      PDF Reports
+```
+
+## Project Milestones
+
+### Milestone 1: RAG Retrieval Foundation
+
+* Establishes the retrieval pipeline.
+* Retrieves relevant evidence from the knowledge base.
+* Provides reference context for evaluating AI-generated responses.
+
+### Milestone 2: Judge Agents and Consistency Validation
+
+* Introduces judge components for response assessment.
+* Evaluates the consistency of AI-generated responses.
+* Supports evidence-based quality assessment.
+
+### Milestone 3: Completeness Judge, Verdict Agent, and Batch Evaluation
+
+* Adds completeness assessment.
+* Combines evaluation results into an overall verdict.
+* Supports resilient batch evaluation.
+
+### Milestone 4: Analytics Dashboard and PDF Report Export
+
+* Provides evaluation analytics and statistics.
+* Supports evaluation history and performance tracking.
+* Generates PDF reports for evaluation results.
+
+## Technology Stack
+
+| Technology            | Purpose                                     |
+| --------------------- | ------------------------------------------- |
+| Python                | Main programming language                   |
+| Streamlit             | Web interface                               |
+| ChromaDB              | Vector storage and retrieval                |
+| Sentence Transformers | Text embeddings and semantic representation |
+| RAG                   | Evidence retrieval and grounding            |
+| Judge Agents          | Response quality assessment                 |
+| Pytest                | Automated testing                           |
+| ReportLab             | PDF report generation                       |
+
+## Application Modules
+
+The application provides the following sections:
+
+* **Dashboard:** View overall evaluation information.
+* **Single Evaluation:** Assess an individual AI response.
+* **Batch Evaluation:** Evaluate multiple responses.
+* **Evaluation History:** Review previous evaluations.
+* **Knowledge Base:** Manage or inspect reference information.
+* **Testing / System Status:** Review system readiness and testing information.
+* **About Project:** View project details.
+
+## Getting Started
+
+### Prerequisites
+
+* Python 3.10 or a compatible supported Python version
+* pip
+* Git
+* Visual Studio Code (recommended)
+
+### 1. Clone the Repository
+
+Replace the repository URL below with your actual GitHub repository URL if it differs.
+
+```bash
+git clone https://github.com/Harika521039/AI-Response-Validation-System.git
+cd AI-Response-Validation-System
+```
+
+### 2. Create a Virtual Environment
+
+```bash
+python -m venv venv
+```
+
+Activate it on Windows PowerShell:
+
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Run Tests
-
-```bash
-pytest tests/ -v
-```
-
-All 337 automated tests execute offline and deterministically without external API calls or live model downloads.
-
-### Run Consistency Benchmark
-
-```bash
-python -m evaluation.run_consistency_check
-```
-
-### Launch the Application
+### 4. Run the Application
 
 ```bash
 streamlit run app.py
 ```
 
-The Streamlit web interface starts at `http://localhost:8501`.
+The application will normally open in your browser at:
 
-The system defaults to deterministic heuristic evaluation mode. To enable LLM-backed evaluation with Anthropic Claude, set `ANTHROPIC_API_KEY` in your environment. If the API key is absent or an API request encounters an issue, the system automatically falls back to deterministic heuristic evaluation.
+`http://localhost:8501`
 
----
+## Running Tests
 
-## 2. System Architecture
-
-The pipeline processes inputs through retrieval, multi-agent evaluation, weighted scoring, and presentation layers:
-
-```text
-Question + AI Response + Optional Reference Answer / Source Info
-                                 |
-                                 v
-                     Input Validation & SQLite Storage
-                                 |
-                                 v
-                     RAG Evidence Retrieval
-          (TruthfulQA / SQuAD -> Chunking -> Embedding -> Vector Search)
-                                 |
-                                 v
-                 Orchestrator Evidence Routing
-                                 |
-    +-----------------+----------+----------+-----------------+
-    |                 |                     |                 |
-    v                 v                     v                 v
-Relevance         Accuracy            Hallucination      Completeness
-  Judge             Judge                 Agent             Judge
-    |                 |                     |                 |
-    +-----------------+----------+----------+-----------------+
-                                 |
-                                 v
-                           Verdict Agent
-               (Normalization -> Weights -> Critical Rules)
-                                 |
-                                 v
-                 Consolidated Evaluation Result
-                                 |
-            +--------------------+--------------------+
-            |                    |                    |
-            v                    v                    v
-     Streamlit UI          M4 Dashboard          M4 PDF Export
- (Single / Batch Views) (Metrics & Trends)    (Single / Batch PDF)
-```
-
-### Component Isolation Principles
-
-- **Relevance Judge** evaluates only the Question and AI Response. It never receives reference evidence, preventing correctness bias from influencing topical relevance.
-- **Accuracy Judge** evaluates factual claims against the reference answer when provided (Case 1), falling back to retrieved RAG chunks (Case 2).
-- **Hallucination Detection Agent** evaluates individual claims extracted from the AI response against all available evidence (reference answer, user source info, and RAG chunks).
-- **Completeness Judge** extracts explicit question requirements and evaluates coverage against the reference answer and retrieved evidence.
-- **Verdict Agent** normalizes dimension outputs to a 0-100 scale, calculates weighted composite scores, enforces critical safety thresholds, and emits actionable issue tags.
-
----
-
-## 3. Project Structure
-
-```text
-AI-Response-Validation-System/
-|-- app.py                          Streamlit user interface
-|-- conftest.py                     Pytest root configuration
-|-- requirements.txt                Python package dependencies
-|-- README.md                       System documentation
-|-- FINAL_PROJECT_REPORT.md         Comprehensive final project report
-|
-|-- backend/                        Milestone 1 retrieval and storage
-|   |-- database.py                 SQLite submission and history storage
-|   |-- ingestion.py                TruthfulQA / SQuAD and demo data loader
-|   |-- preprocessing.py            Text normalization and chunking
-|   |-- embeddings.py               Sentence transformer with hashing fallback
-|   |-- vector_store.py             ChromaDB with JSON cosine fallback
-|   |-- retrieval.py                RAG pipeline and evidence retrieval
-|   |-- llm_client.py               Anthropic API client wrapper
-|
-|-- agents/                         Milestone 2 and 3 evaluation agents
-|   |-- schemas.py                  Dataclasses and strict validation models
-|   |-- utils.py                    Sentence splitting and text overlap utilities
-|   |-- claim_checker.py            Atomic claim extraction and verification logic
-|   |-- relevance_judge.py          Relevance scoring (1-5 scale)
-|   |-- accuracy_judge.py           Factual accuracy scoring (1-5 scale)
-|   |-- hallucination_judge.py      Claim-level hallucination detection
-|   |-- completeness_judge.py       Requirement extraction and coverage (1-5 scale)
-|   |-- verdict_agent.py            Weighted scoring and critical decision rules
-|   |-- orchestrator.py             Single-evaluation execution pipeline
-|   |-- batch_evaluator.py          Resilient CSV batch evaluation engine
-|
-|-- analytics/                      Milestone 4 analytics engine
-|   |-- dashboard.py                Offline metrics, distributions, and trends
-|
-|-- reporting/                      Milestone 4 reporting engine
-|   |-- pdf_report.py               ReportLab document generator and renderer
-|
-|-- evaluation/                     Validation benchmarks
-|   |-- run_consistency_check.py    Automated consistency test runner
-|   |-- results/                    Benchmark results and validation artifacts
-|
-|-- data/
-|   |-- demo_dataset.json           Bundled knowledge base records
-|   |-- test_dataset.json           15-case evaluation benchmark
-|   |-- batch_sample.csv            Sample input file for batch processing
-|
-|-- tests/                          337 automated unit and integration tests
-    |-- test_agents.py
-    |-- test_app_smoke.py
-    |-- test_basic.py
-    |-- test_batch_evaluator.py
-    |-- test_claim_checker.py
-    |-- test_completeness_judge.py
-    |-- test_consistency_analysis.py
-    |-- test_dashboard_analytics.py
-    |-- test_dashboard_persistence.py
-    |-- test_e2e_system_validation.py
-    |-- test_embeddings_fallback.py
-    |-- test_orchestrator_m3.py
-    |-- test_pdf_report.py
-    |-- test_regression_grotto.py
-    |-- test_regression_m3_final.py
-    |-- test_schemas.py
-    |-- test_source_information.py
-    |-- test_utils.py
-    |-- test_vector_store_fallback.py
-    |-- test_verdict_agent.py
-```
-
----
-
-## 4. Evaluation Agents
-
-### Relevance Judge (M2.1)
-Measures how directly the response addresses the prompt on a 1-5 scale:
-- 5: Completely relevant; fully addresses the query.
-- 4: Mostly relevant; answers the core question with minor extraneous detail.
-- 3: Partially relevant; addresses only a subset of the prompt.
-- 2: Mostly irrelevant; minor tangential connection.
-- 1: Completely irrelevant or off-topic.
-
-The judge isolates the prompt and response, ensuring an answer that is factually wrong but topical receives a high relevance score.
-
-### Accuracy Judge (M2.2)
-Evaluates factual validity against available evidence on a 1-5 scale:
-- 5: Completely correct; all claims verified by evidence.
-- 4: Mostly correct; core assertions verified, minor unverified detail.
-- 3: Partially correct; mix of verified and unverified claims.
-- 2: Mostly incorrect; little evidence support.
-- 1: Completely incorrect or directly contradicted.
-
-The output records `evidence_mode` (`reference_answer`, `rag_evidence`, or `none`) and extracts verbatim snippets into `supporting_evidence`.
-
-### Hallucination Detection Agent (M2.3)
-Splits the AI response into discrete atomic claims and classifies each:
-- **Supported**: Directly confirmed by reference evidence.
-- **Unsupported**: Not mentioned in the evidence (unverified, not necessarily false).
-- **Contradicted**: Directly refuting reference evidence.
-
-The aggregate status is:
-- **No hallucination**: All claims supported.
-- **Partially hallucinated**: At least one unsupported or contradicted claim alongside supported claims.
-- **Hallucinated**: Zero claims supported by evidence.
-
-### Completeness Judge (M3.1)
-Extracts key question requirements and evaluates coverage on a 1-5 scale:
-- Identifies addressed, partially addressed, and missing requirements.
-- Uses reference answers first, then retrieved knowledge chunks.
-- Emits explicit lists of missing aspects to inform downstream user feedback.
-
-### Verdict Agent (M3.2)
-Combines all four dimensions into an objective final assessment:
-- Normalizes individual scores to a 0-100 scale:
-  - Accuracy: 35% weight
-  - Hallucination: 30% weight
-  - Completeness: 20% weight
-  - Relevance: 15% weight
-- Baseline thresholds on the composite score:
-  - Score >= 75: **Pass**
-  - Score >= 50: **Needs Improvement**
-  - Score < 50: **Fail**
-- Critical Safety Rules:
-  - If hallucination status is `Hallucinated`, the verdict is capped at `Fail`.
-  - If accuracy score is 1, the verdict is capped at `Fail`.
-  - If over 50% of claims are `Contradicted`, the verdict is capped at `Fail`.
-  - The critical rules can only downgrade a verdict, never upgrade it.
-
----
-
-## 5. Milestone 4 Features
-
-### Analytics Scoring Dashboard (M4.1)
-The dashboard calculation engine resides in `analytics/dashboard.py`. It runs independently of the presentation framework, enabling full offline test coverage.
-- **Aggregate Metrics**: Total evaluations, successful evaluations, failed records, average overall score, and average individual dimension scores.
-- **Distribution Analysis**: Exact counts and percentages for Pass, Needs Improvement, and Fail verdicts.
-- **Hallucination Monitoring**: Overall hallucination frequency, clean response rate, and per-status breakdown.
-- **Historical Trends**: Performance tracking across evaluation batches over time.
-- **Strict Data Integrity**: Averages are computed strictly from existing dimension values without synthetic defaults or imputed zeros.
-
-### PDF Report Export (M4.2)
-The PDF reporting module in `reporting/pdf_report.py` uses a two-stage architecture:
-1. `build_report_document()` creates an intermediate `ReportDocument` containing structured metadata, summary tables, score charts, claim breakdowns, and reasoning.
-2. `render_pdf()` uses ReportLab to compile the document into clean, professional PDF bytes.
-
-Features supported:
-- **Single Evaluation Reports**: Full breakdown including prompt, response, dimension cards, evidence citations, individual claim statuses, and verdict rationale.
-- **Batch Evaluation Reports**: Executive summary, dataset statistics, score distributions, and detailed per-record summaries with pagination and text wrapping.
-
----
-
-## 6. Batch Evaluation Workflow (M3.4)
-
-The batch engine in `agents/batch_evaluator.py` processes CSV files up to 200 rows with field lengths up to 20,000 characters:
-- **Accepted Columns**: Required `question` and `ai_response`; optional `reference_answer`, `id`, and `source_information`.
-- **Fault-Tolerant Processing**: File-level errors halt execution with clear feedback. Row-level errors (missing values, malformed data) skip individual rows without stopping the batch.
-- **Execution Resilience**: Runtime errors during single-row evaluation mark that record as failed and continue processing subsequent records.
-- **Output Capabilities**: Generates full aggregate statistics, detailed per-row drilldowns, downloadable processed CSVs, and batch PDF summaries.
-
----
-
-## 7. RAG Knowledge Base and Fallbacks
-
-Every external dependency includes a verified offline fallback:
-- **Judging**: Claude LLM via Anthropic API, falling back to deterministic heuristic rules.
-- **Embeddings**: `sentence-transformers/all-MiniLM-L6-v2`, falling back to a deterministic 512-dimension hashing vectorizer.
-- **Vector Storage**: ChromaDB persistent store, falling back to an in-memory JSON store with exact cosine similarity search.
-- **Reference Data**: Live Hugging Face dataset downloads (TruthfulQA / SQuAD), falling back to bundled `data/demo_dataset.json`.
-
----
-
-## 8. Automated Testing
-
-The automated test suite contains **337 passing tests**:
+Run the automated test suite from the project root:
 
 ```bash
-pytest
+pytest tests/ -v
 ```
 
-Output:
-```text
-============================= test session starts ==============================
-collected 337 items
+The project README reports **337 passing tests**. Run the command above to verify the current test results for your latest version.
 
-tests/test_agents.py ...........................                         [  8%]
-tests/test_app_smoke.py ................                                 [ 12%]
-tests/test_basic.py ..............                                       [ 16%]
-tests/test_batch_evaluator.py ............................               [ 25%]
-tests/test_claim_checker.py ...........                                  [ 28%]
-tests/test_completeness_judge.py ................                        [ 33%]
-tests/test_consistency_analysis.py ...................                   [ 38%]
-tests/test_dashboard_analytics.py ...................................... [ 50%]
-tests/test_dashboard_persistence.py ..........                           [ 54%]
-tests/test_e2e_system_validation.py ......................               [ 60%]
-tests/test_embeddings_fallback.py ......                                 [ 62%]
-tests/test_orchestrator_m3.py ..........                                 [ 65%]
-tests/test_pdf_report.py ...........................                     [ 73%]
-tests/test_regression_grotto.py ........                                 [ 75%]
-tests/test_regression_m3_final.py ..................                     [ 81%]
-tests/test_schemas.py ........                                           [ 83%]
-tests/test_source_information.py ...........                             [ 86%]
-tests/test_utils.py ...................                                  [ 92%]
-tests/test_vector_store_fallback.py .....                                [ 93%]
-tests/test_verdict_agent.py .....................                        [100%]
+## Evaluation Workflow
 
-============================= 337 passed in 9.32s ==============================
-```
+1. Enter an AI-generated response and the relevant question.
+2. Retrieve supporting evidence from the knowledge base.
+3. Evaluate the response using the available judge components.
+4. Review the evaluation scores and final verdict.
+5. Save or review the evaluation in the history section.
+6. Export a PDF report when required.
+7. Use the analytics dashboard to review evaluation performance.
 
-Tests cover M1 foundation mechanics, M2 agents, M3 completeness and verdict logic, M3 batch processing, M4 analytics dashboard metrics, M4 PDF document generation, and end-to-end integration.
+## Deployment
+
+The project is deployed using Streamlit Community Cloud.
+
+**Live Application:** [AI Response Validation System](https://ai-response-validation-system-harika.streamlit.app/)
+
+To deploy an updated version, push the latest project changes to the connected GitHub repository and check the deployment status in Streamlit Community Cloud.
+
+## Future Enhancements
+
+* Improve hallucination detection using more advanced evaluation methods.
+* Expand the reference knowledge base.
+* Add more evaluation metrics and benchmarking datasets.
+* Improve the visualization of evaluation trends.
+* Enhance evaluation speed and scalability.
+
+## Author
+
+**Harika Yarakaraju**
+
+B.Tech — Computer Science and Engineering (AI & Data Science)
+
+Shri Vishnu Engineering College for Women
+
+GitHub: [Harika521039](https://github.com/Harika521039)
+
+## License
+
+Add a `LICENSE` file if your project has a chosen open-source license. Use the license that matches your project's actual licensing terms.
+
+---
