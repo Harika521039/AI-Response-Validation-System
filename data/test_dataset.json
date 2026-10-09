@@ -1,0 +1,254 @@
+[
+  {
+    "id": "TC01",
+    "category": "correct_and_relevant",
+    "evidence_mode": "rag",
+    "question": "What is the capital of France?",
+    "ai_response": "Paris is the capital of France.",
+    "reference_answer": null,
+    "expected_behavior": {
+      "relevance_score": 5,
+      "accuracy_score": 5,
+      "hallucination_status": [
+        "No hallucination"
+      ],
+      "notes": "Directly answers the question and every claim is confirmed by the retrieved evidence."
+    }
+  },
+  {
+    "id": "TC02",
+    "category": "paraphrase_of_correct_answer",
+    "evidence_mode": "rag",
+    "paraphrase_of": "TC01",
+    "question": "What is the capital of France?",
+    "ai_response": "France's capital city is Paris.",
+    "reference_answer": null,
+    "expected_behavior": {
+      "relevance_score": 5,
+      "accuracy_score": 5,
+      "hallucination_status": [
+        "No hallucination"
+      ],
+      "notes": "Same meaning as TC01 with different wording, so it must score within 1 point of TC01."
+    }
+  },
+  {
+    "id": "TC03",
+    "category": "relevant_but_factually_incorrect",
+    "evidence_mode": "rag",
+    "question": "What is the capital of France?",
+    "ai_response": "Berlin is the capital of France.",
+    "reference_answer": null,
+    "expected_behavior": {
+      "relevance_score": 5,
+      "accuracy_score": 1,
+      "hallucination_status": [
+        "Hallucinated"
+      ],
+      "notes": "The Milestone 2 example case: fully relevant because it answers the question, but the evidence names a different city."
+    }
+  },
+  {
+    "id": "TC04",
+    "category": "partially_correct_with_unsupported_detail",
+    "evidence_mode": "rag",
+    "question": "What is the largest planet in our solar system?",
+    "ai_response": "Jupiter is the largest planet in our solar system. It has exactly 100 confirmed moons.",
+    "reference_answer": null,
+    "expected_behavior": {
+      "relevance_score": 5,
+      "accuracy_score": 3,
+      "hallucination_status": [
+        "Partially hallucinated"
+      ],
+      "notes": "First claim supported, second claim invented. One bad claim must not condemn the whole response."
+    }
+  },
+  {
+    "id": "TC05",
+    "category": "off_topic_irrelevant",
+    "evidence_mode": "rag",
+    "question": "What is the capital of France?",
+    "ai_response": "Bananas are an excellent source of potassium and vitamin B6.",
+    "reference_answer": null,
+    "expected_behavior": {
+      "relevance_score": 1,
+      "accuracy_score": null,
+      "hallucination_status": [
+        "Partially hallucinated"
+      ],
+      "notes": "Completely off topic. Accuracy is not meaningfully defined here, so no accuracy expectation is asserted. The evidence says nothing about bananas, so every claim is Unsupported: flagged as a problem and never Supported, but 'Hallucinated' is reserved for claims the evidence actually contradicts.",
+      "expected_claim_statuses_exclude": [
+        "Supported"
+      ]
+    }
+  },
+  {
+    "id": "TC06",
+    "category": "incomplete_partially_relevant",
+    "evidence_mode": "rag",
+    "question": "What is the capital of France and roughly how large is its population?",
+    "ai_response": "Paris is the capital of France.",
+    "reference_answer": null,
+    "expected_behavior": {
+      "relevance_score": 3,
+      "accuracy_score": 5,
+      "hallucination_status": [
+        "No hallucination"
+      ],
+      "notes": "Answers only half the question, so relevance drops, but what it does say is correct."
+    }
+  },
+  {
+    "id": "TC07",
+    "category": "contradicted_by_evidence",
+    "evidence_mode": "rag",
+    "question": "Does eating carrots significantly improve your night vision?",
+    "ai_response": "Yes, eating carrots dramatically improves your night vision and lets you see clearly in complete darkness.",
+    "reference_answer": null,
+    "expected_behavior": {
+      "relevance_score": 5,
+      "accuracy_score": 1,
+      "hallucination_status": [
+        "Hallucinated"
+      ],
+      "notes": "The evidence explicitly calls this claim exaggerated, so it must be Contradicted, not merely Unsupported."
+    }
+  },
+  {
+    "id": "TC08",
+    "category": "mixed_supported_and_unsupported_claims",
+    "evidence_mode": "rag",
+    "question": "What causes the seasons on Earth?",
+    "ai_response": "The tilt of Earth's axis causes the seasons. Earth's orbit around the Sun is a perfect circle.",
+    "reference_answer": null,
+    "expected_behavior": {
+      "relevance_score": 5,
+      "accuracy_score": 3,
+      "hallucination_status": [
+        "Partially hallucinated"
+      ],
+      "notes": "First claim supported, second claim not backed by the evidence."
+    }
+  },
+  {
+    "id": "TC09",
+    "category": "unsupported_but_not_false",
+    "evidence_mode": "rag",
+    "question": "Who wrote the play Romeo and Juliet?",
+    "ai_response": "Shakespeare was a prolific English playwright who wrote many famous works.",
+    "reference_answer": null,
+    "expected_behavior": {
+      "relevance_score": 3,
+      "accuracy_score": 2,
+      "hallucination_status": [
+        "Hallucinated",
+        "Partially hallucinated"
+      ],
+      "expected_claim_statuses_exclude": [
+        "Contradicted"
+      ],
+      "notes": "Never directly answers who wrote the play. The evidence neither confirms nor denies the wider claim, so it must be reported as Unsupported, never as Contradicted."
+    }
+  },
+  {
+    "id": "TC10",
+    "category": "correct_multi_claim_response",
+    "evidence_mode": "rag",
+    "question": "Do goldfish have a memory span of only 3 seconds?",
+    "ai_response": "No, that's a myth. Goldfish can actually remember things for several months.",
+    "reference_answer": null,
+    "expected_behavior": {
+      "relevance_score": 5,
+      "accuracy_score": 5,
+      "hallucination_status": [
+        "No hallucination"
+      ],
+      "notes": "Correct rejection of a myth. The opening stance fragment must not be scored as a separate unverifiable claim."
+    }
+  },
+  {
+    "id": "TC11",
+    "category": "false_positive_probe",
+    "evidence_mode": "rag",
+    "question": "What is the Grotto at Notre Dame?",
+    "ai_response": "The Grotto at Notre Dame is a Marian place of prayer and reflection. It is a replica of the grotto at Lourdes, France.",
+    "reference_answer": null,
+    "expected_behavior": {
+      "relevance_score": 5,
+      "accuracy_score": 5,
+      "hallucination_status": [
+        "No hallucination"
+      ],
+      "notes": "False positive probe: the evidence clearly supports this response, so flagging any hallucination here would be a false alarm."
+    }
+  },
+  {
+    "id": "TC12",
+    "category": "false_negative_probe",
+    "evidence_mode": "rag",
+    "question": "What is the Grotto at Notre Dame?",
+    "ai_response": "The Grotto at Notre Dame is a football stadium used for sporting events.",
+    "reference_answer": null,
+    "expected_behavior": {
+      "relevance_score": 5,
+      "accuracy_score": 2,
+      "hallucination_status": [
+        "Partially hallucinated"
+      ],
+      "notes": "False negative probe: the claim shares its subject with the evidence, which used to make similarity alone mark it Supported. It must never be Supported. The evidence describes the Grotto without stating it is not a stadium, so the honest verdict is Unsupported (Partially hallucinated) - still flagged, still accuracy 2.",
+      "expected_claim_statuses_exclude": [
+        "Supported"
+      ]
+    }
+  },
+  {
+    "id": "TC13",
+    "category": "reference_answer_correct",
+    "evidence_mode": "reference_answer",
+    "question": "How far is the Moon from Earth?",
+    "ai_response": "The Moon is about 384,400 kilometers from Earth on average.",
+    "reference_answer": "The Moon is about 384,400 kilometers from Earth on average.",
+    "expected_behavior": {
+      "relevance_score": 5,
+      "accuracy_score": 5,
+      "hallucination_status": [
+        "No hallucination"
+      ],
+      "notes": "CASE 1 evidence path: accuracy must be judged against the supplied reference answer, not the retrieved chunks."
+    }
+  },
+  {
+    "id": "TC14",
+    "category": "reference_answer_numeric_contradiction",
+    "evidence_mode": "reference_answer",
+    "question": "How far is the Moon from Earth?",
+    "ai_response": "The Moon is about 1,000,000 kilometers from Earth.",
+    "reference_answer": "The Moon is about 384,400 kilometers from Earth on average.",
+    "expected_behavior": {
+      "relevance_score": 5,
+      "accuracy_score": 1,
+      "hallucination_status": [
+        "Hallucinated"
+      ],
+      "notes": "CASE 1 evidence path with a wrong number. Relevant but contradicted by the reference answer."
+    }
+  },
+  {
+    "id": "TC15",
+    "category": "reference_answer_paraphrase",
+    "evidence_mode": "reference_answer",
+    "paraphrase_of": "TC13",
+    "question": "How far is the Moon from Earth?",
+    "ai_response": "On average, the Moon lies roughly 384,400 kilometers away from Earth.",
+    "reference_answer": "The Moon is about 384,400 kilometers from Earth on average.",
+    "expected_behavior": {
+      "relevance_score": 5,
+      "accuracy_score": 5,
+      "hallucination_status": [
+        "No hallucination"
+      ],
+      "notes": "Paraphrase consistency in reference-answer mode: must score within 1 point of TC13."
+    }
+  }
+]

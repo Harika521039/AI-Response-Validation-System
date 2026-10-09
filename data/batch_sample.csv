@@ -1,0 +1,5 @@
+id,question,ai_response,reference_answer,source_information
+1,What is the capital of France?,Paris is the capital of France.,Paris is the capital of France.,Paris has been the capital of France since 987 AD.
+2,Who wrote Hamlet?,Hamlet was written by William Shakespeare in 1601.,,
+3,How many continents are there?,There are five continents on Earth.,There are seven continents on Earth.,
+4,,This row has no question and will be skipped.,,Source text for a row that cannot be evaluated.

@@ -1,0 +1,24 @@
+# ---------------------------------------------------------------------------
+# AI Response Validation System - dependencies
+# ---------------------------------------------------------------------------
+# The evaluation agents, the orchestrator and the whole test suite run on the
+# Python standard library alone. Everything below is for the user interface,
+# the vector database and the reference datasets. If any of them is missing,
+# the project degrades to a documented fallback instead of crashing.
+
+# User interface (needed to run the app)
+streamlit>=1.32.0
+
+# Milestone 1 RAG pipeline
+sentence-transformers>=2.6.0   # falls back to a hashing vectorizer if unavailable
+chromadb>=0.4.24               # falls back to a local JSON vector store if unavailable
+datasets>=2.18.0               # falls back to data/demo_dataset.json if unavailable
+
+# Testing
+pytest>=8.0.0
+
+# Optional: only needed to run the judges in LLM mode instead of heuristic mode.
+# Without it (or without ANTHROPIC_API_KEY set) every agent uses its
+# deterministic heuristic evaluator, which is the default.
+anthropic>=0.34.0
+reportlab>=4.0.0
