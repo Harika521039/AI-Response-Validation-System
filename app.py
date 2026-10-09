@@ -655,33 +655,3 @@ def render_history():
             st.write(f"**Detailed reasoning:** {payload['verdict']['reasoning']}")
 
 
-with st.spinner("Preparing the knowledge base..."):
-    init_info = initialize_system()
-with st.sidebar:
-    st.markdown("## AI Validation")
-    
-    page = st.radio(
-        "Navigation",
-        ["Dashboard", "Single Evaluation", "Batch Evaluation", "Evaluation History", "Knowledge Base", "Testing / System Status", "About Project"],
-        index=1,
-        label_visibility="collapsed",
-    )
-    st.markdown("---")
-    st.caption(f"Vector store: {init_info['vector_backend']}")
-    st.caption(f"Embeddings: {init_info['embedding_mode']}")
-    st.caption(f"Stored evaluations: {database.get_dashboard_statistics()['total_evaluations']}")
-render_header(init_info)
-pages = {
-    "Dashboard": render_dashboard,
-    "Single Evaluation": render_single_evaluation,
-    "Batch Evaluation": render_batch_evaluation,
-    "Evaluation History": render_history,
-    "Knowledge Base": lambda: render_knowledge_base(init_info),
-    "Testing / System Status": lambda: render_system_status(init_info),
-    "About Project": render_about,
-}
-if page is None:
-    for render in pages.values():
-        render()
-else:
-    pages[page]()
