@@ -132,7 +132,7 @@ The application provides the following sections:
 
 ### 1. Clone the Repository
 
-Replace the repository URL below with your actual GitHub repository URL if it differs.
+
 
 ```bash
 git clone https://github.com/Harika521039/AI-Response-Validation-System.git
@@ -172,10 +172,13 @@ The application will normally open in your browser at:
 Run the automated test suite from the project root:
 
 ```bash
-pytest tests/ -v
+python -m pytest tests/ -v
 ```
 
-The project README reports **337 passing tests**. Run the command above to verify the current test results for your latest version.
+**Latest test results:** 332 passed, 5 skipped, 0 failed.
+
+The test suite completed in approximately 58 seconds on the local development environment.
+
 
 ## Evaluation Workflow
 
