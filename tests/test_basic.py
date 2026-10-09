@@ -1,11 +1,4 @@
-"""
-test_basic.py
--------------
-Milestone 1 regression tests: preprocessing, the demo-dataset ingestion
-fallback, and SQLite submission storage. These must keep passing so that
-Milestone 2 work cannot quietly break the foundation.
-No network access is required.
-"""
+
 import sqlite3
 import tempfile
 import unittest

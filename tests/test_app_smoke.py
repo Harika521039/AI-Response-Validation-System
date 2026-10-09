@@ -1,15 +1,4 @@
-"""
-test_app_smoke.py
------------------
-Executes app.py from top to bottom with a stubbed streamlit module.
-This is a real run of the UI code - the form handling, the orchestrator
-call and every render function actually execute - so a broken UI fails the
-test suite instead of only showing up in a browser. It checks two paths:
-    1. First page load, before the user submits anything.
-    2. After the user fills in the form and clicks the button, with the
-       relevance, accuracy, hallucination and final summary blocks all
-       rendered.
-"""
+
 import importlib
 import sys
 import tempfile

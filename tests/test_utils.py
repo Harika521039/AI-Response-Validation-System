@@ -1,9 +1,4 @@
-"""
-test_utils.py
--------------
-Tests for the shared text-analysis helpers that every judge relies on.
-If these are wrong, all three agents are wrong.
-"""
+
 import unittest
 from tests.support import OfflineTestCase
 from agents import utils

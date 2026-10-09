@@ -1,12 +1,4 @@
-"""
-test_consistency_analysis.py
-----------------------------
-Tests for the grading logic in evaluation/run_consistency_check.py: the
-expected-vs-actual comparison, the false positive / false negative
-detection, and the paraphrase consistency rule.
-These tests use hand-built records so the grading logic itself is checked
-in isolation, without running the agents.
-"""
+
 import json
 import unittest
 from tests.support import OfflineTestCase

@@ -1,27 +1,4 @@
-"""
-run_consistency_check.py
-------------------------
-M2.4 - Agent Evaluation & Consistency Validation.
-This is not a fourth judge. It is a plain script that grades the three
-judges against a benchmark dataset:
-    1. Loads data/test_dataset.json (15 cases: correct, incorrect,
-       partially correct, relevant, irrelevant, incomplete, unsupported,
-       contradictory and paraphrased responses, in both evidence modes).
-    2. Makes sure the Milestone 1 knowledge base is populated.
-    3. Runs every case through the Evaluation Orchestrator, so all three
-       agents run on identical input.
-    4. Compares each actual result against the expected behaviour declared
-       in the dataset.
-    5. Checks paraphrase consistency: responses that mean the same thing
-       must score within CONSISTENCY_TOLERANCE points of each other.
-    6. Reports hallucination false positives and false negatives.
-    7. Writes evaluation/results/consistency_report.json and prints a
-       readable summary.
-Nothing here is hardcoded to pass. Every number printed comes from an
-actual agent run, and any mismatch is reported rather than hidden.
-Run from the project root:
-    python -m evaluation.run_consistency_check
-"""
+
 import json
 import logging
 import sys

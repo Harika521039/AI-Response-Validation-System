@@ -1,15 +1,4 @@
-"""
-test_pdf_report.py
-------------------
-Focused tests for M4.2 - PDF Report Export.
-The report is verified in two ways:
-    1. against the document structure returned by build_report_document(),
-       whose every value is asserted against the same evaluation records,
-    2. against the text actually extracted back out of the rendered PDF,
-       so what the reader sees is checked, not just what was assembled.
-The PDF text check is skipped, not failed, when no PDF text extractor is
-installed, since the extractor is a test-only convenience.
-"""
+
 import sys
 import unittest
 from pathlib import Path

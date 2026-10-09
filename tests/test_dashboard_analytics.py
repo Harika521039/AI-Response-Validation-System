@@ -1,11 +1,4 @@
-"""
-test_dashboard_analytics.py
----------------------------
-Focused tests for M4.1 - Evaluation Scoring Dashboard.
-Every assertion re-derives the expected figure by hand from the same
-evaluation records the dashboard was given, so a dashboard number that
-stops matching the underlying data fails here.
-"""
+
 import sys
 import unittest
 from pathlib import Path

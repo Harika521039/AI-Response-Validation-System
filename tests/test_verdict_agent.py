@@ -1,10 +1,4 @@
-"""
-test_verdict_agent.py
-----------------------
-Tests for the M3.2 Verdict Agent: weight validation, normalization,
-the weighted-score formula, the Pass/Needs Improvement/Fail thresholds,
-and every critical rule.
-"""
+
 import unittest
 from agents import verdict_agent
 from agents.schemas import (

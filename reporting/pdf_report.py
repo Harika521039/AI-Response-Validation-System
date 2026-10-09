@@ -1,28 +1,4 @@
-"""
-pdf_report.py
--------------
-Milestone 4 - Task M4.2: PDF Report Export.
-The export runs in two separate stages, deliberately:
-    evaluation records
-            |
-            v
-    build_report_document()   pure Python, no PDF library involved.
-            |                 Produces a ReportDocument: an ordered list
-            |                 of headings, paragraphs, bullet lists,
-            |                 tables and bar charts whose every value is
-            |                 read off the stored agent results.
-            v
-    render_pdf()              turns that document into PDF bytes with
-                              ReportLab.
-Splitting it this way means the report contents are verifiable directly
-against the evaluation data - a test asserts on the document structure
-and on document.to_text(), with no PDF parsing and no guesswork - while
-the rendering stage stays a thin, replaceable presentation layer.
-Long text is wrapped by the renderer and only hard-clipped at a generous
-per-field limit, and then with an explicit "truncated" notice so nothing
-silently disappears. Large batches are paginated one result per page,
-with an optional detail cap that, when used, is stated in the report.
-"""
+
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Sequence

@@ -1,10 +1,4 @@
-"""
-test_agents.py
---------------
-Tests for the three Milestone 2 judge agents and the Evaluation
-Orchestrator. Every test runs offline with deterministic embeddings and no
-API key, so the heuristic evaluators are exercised.
-"""
+
 import unittest
 from unittest import mock
 from tests.support import OfflineTestCase

@@ -1,11 +1,4 @@
-"""
-test_completeness_judge.py
----------------------------
-Tests for the M3.1 Completeness Judge. Every test runs offline with
-deterministic embeddings and no API key, so the heuristic evaluator is
-exercised (same pattern as tests/test_agents.py for the Milestone 2
-judges).
-"""
+
 import unittest
 from tests.support import OfflineTestCase
 from agents import completeness_judge

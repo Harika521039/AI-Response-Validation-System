@@ -1,11 +1,4 @@
-"""
-test_orchestrator_m3.py
-------------------------
-Confirms the Evaluation Orchestrator runs all FOUR judges (Relevance,
-Accuracy, Hallucination, Completeness) plus the Verdict Agent, and that
-the Milestone 2 orchestrator behaviour (evidence retrieval, reference
-answer handling, empty-input validation) still works unchanged.
-"""
+
 import unittest
 from unittest import mock
 from tests.support import OfflineTestCase

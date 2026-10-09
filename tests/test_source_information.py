@@ -1,15 +1,4 @@
-"""
-test_source_information.py
---------------------------
-M3.4 - the optional `source_information` column.
-Covers the full path of that column:
-    1. It is part of the documented CSV contract (and its aliases parse).
-    2. It is validated like the other free-text columns.
-    3. It is preserved on every row result - evaluated, skipped and failed.
-    4. It reaches the Orchestrator, which treats it as supplied evidence and
-       keeps it on the EvaluationResult the row preserves.
-    5. It appears in the detailed row results and in the CSV export.
-"""
+
 from unittest import mock
 from tests.support import OfflineTestCase
 from agents import batch_evaluator, orchestrator

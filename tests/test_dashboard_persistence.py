@@ -1,12 +1,4 @@
-"""
-test_dashboard_persistence.py
------------------------------
-Focused tests for the storage the M4.1 dashboard reads from.
-A batch run has to survive as individual evaluation records, otherwise
-"quality trends across batches" would have nothing real to plot. These
-tests store an actual batch report in a temporary database and check that
-what comes back out still matches the agent results that went in.
-"""
+
 import sys
 import tempfile
 import unittest

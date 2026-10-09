@@ -1,26 +1,4 @@
-"""
-test_regression_grotto.py
--------------------------
-Regression tests for two real bugs found while running the Milestone 2
-benchmark. Both involved the same evidence, so they are kept together.
-Bug 1 - FALSE NEGATIVE
-    Response: "The Grotto at Notre Dame is a football stadium used for
-               sporting events."
-    The claim shares its subject ("the Grotto") with the evidence, which
-    pushed embedding similarity high enough that the claim was marked
-    Supported. Fixed by requiring the claim's own descriptive words to
-    appear in the evidence before calling anything Supported.
-Bug 2 - FALSE POSITIVE
-    Response: "The Grotto at Notre Dame is a Marian place of prayer and
-               reflection."
-    This is correct and fully backed by the evidence, but the subject-swap
-    rule fired on the evidence sentence "Immediately behind the basilica is
-    the Grotto ...", treating the adverbial opening as a competing subject.
-    Fixed by skipping the subject-swap rule whenever the claim's subject is
-    mentioned in the evidence.
-Both directions are locked in here, so a future change cannot fix one by
-breaking the other.
-"""
+
 import unittest
 from unittest import mock
 from tests.support import OfflineTestCase

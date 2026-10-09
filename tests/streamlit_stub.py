@@ -1,15 +1,4 @@
-"""
-streamlit_stub.py
------------------
-A minimal stand-in for the streamlit module, used by tests/test_app_smoke.py.
-Importing app.py runs the whole page top to bottom. Replacing streamlit
-with this stub lets the test execute that real code - the form handling,
-the orchestrator call, every render function - and then assert on what the
-page tried to draw, without needing a browser or a running server.
-The stub records every call so the test can check that the page rendered
-the relevance score, the accuracy score, the hallucination status and the
-final summary.
-"""
+
 class _Recorder:
     """Collects everything the page writes, so tests can inspect it."""
     def __init__(self):

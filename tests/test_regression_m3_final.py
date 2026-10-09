@@ -1,18 +1,4 @@
-"""
-test_regression_m3_final.py
----------------------------
-Regression tests for the four defects found when Milestone 3 was verified
-end to end. Each test names the behaviour that was wrong and pins the
-corrected behaviour so it cannot quietly come back.
-    1. Completeness accuracy - a correct paraphrase was scored as missing
-       because the judge only looked for the question's own words.
-    2. Unsupported vs Hallucinated - claims the evidence merely failed to
-       mention were reported as hallucinations and forced a Fail verdict.
-    3. RAG evidence relevance - retrieval always returned its nearest
-       neighbours, so an unrelated chunk became "ground truth".
-    4. Requirement splitting - "Compare X and Y" was torn into two
-       requirements, one of which no answer could ever satisfy.
-"""
+
 import unittest
 from unittest import mock
 from tests.support import OfflineTestCase

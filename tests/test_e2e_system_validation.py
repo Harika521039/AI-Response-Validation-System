@@ -1,19 +1,4 @@
-"""
-Milestone 4.3 - End-to-end testing and system validation.
 
-Runs the real pipeline offline (deterministic embeddings, heuristic judges,
-no LLM) through every stage:
-
-    single: input -> RAG -> four judges -> verdict -> stored result ->
-            dashboard -> PDF
-    batch:  CSV -> validation -> evaluation -> row results -> aggregate ->
-            stored batch -> dashboard -> PDF
-
-Measured validation figures (consistency mean/variance, hallucination
-detection rate, batch timing) are written to
-evaluation/results/m43_validation_results.json so they are recorded from
-real runs, not typed in by hand.
-"""
 import io
 import json
 import statistics

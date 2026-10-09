@@ -1,12 +1,4 @@
-"""
-test_vector_store_fallback.py
------------------------------
-The knowledge base normally lives in ChromaDB. When chromadb is not
-installed or cannot start, backend/vector_store.py switches to a local JSON
-store with plain cosine search so Milestone 1 retrieval keeps working.
-These tests exercise that fallback directly, against a temporary directory
-so the real chroma_db/ folder is untouched.
-"""
+
 import tempfile
 import unittest
 from pathlib import Path

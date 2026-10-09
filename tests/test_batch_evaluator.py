@@ -1,16 +1,4 @@
-"""
-test_batch_evaluator.py
------------------------
-M3.4 - Batch Evaluation core.
-Covers the four things the task requires:
-    1. CSV parsing with required and optional columns (plus aliases).
-    2. File-level and column-level validation.
-    3. Row-level validation: invalid rows are skipped with a reason and the
-       rest of the batch still runs.
-    4. Valid rows go through the real Orchestrator (all four judges plus the
-       Verdict Agent), each row's complete result is preserved, progress is
-       reported for real, and a single row failing does not stop the batch.
-"""
+
 from tests.support import OfflineTestCase
 from agents import batch_evaluator
 from agents.schemas import BatchValidationError, EvaluationResult

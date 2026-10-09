@@ -1,10 +1,4 @@
-"""
-test_claim_checker.py
----------------------
-The claim checker decides Supported / Unsupported / Contradicted for a
-single claim. Both the Accuracy Judge and the Hallucination Agent depend
-on it, so its rules are tested directly here.
-"""
+
 import unittest
 from tests.support import OfflineTestCase
 from agents.claim_checker import check_all_claims, check_claim

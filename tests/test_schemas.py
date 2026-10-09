@@ -1,9 +1,4 @@
-"""
-test_schemas.py
----------------
-The structured input/output models must reject invalid data instead of
-letting it flow into the evaluation report. These tests lock that in.
-"""
+
 import unittest
 from tests.support import OfflineTestCase
 from agents.schemas import (

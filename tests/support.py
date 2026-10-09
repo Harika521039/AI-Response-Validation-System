@@ -1,18 +1,4 @@
-"""
-support.py
-----------
-Shared helpers for the test suite.
-Every test must be offline and deterministic:
-    - no sentence-transformers model download,
-    - no Hugging Face dataset download,
-    - no LLM API call.
-use_offline_embeddings() swaps in the deterministic hashing vectorizer that
-backend/embeddings.py already ships as its offline fallback, and
-disable_llm() makes sure the judge agents run their heuristic path rather
-than trying to reach an API.
-These tests are written with unittest.TestCase, so they run both with
-`pytest tests/ -v` and with `python -m unittest discover -s tests -v`.
-"""
+
 import os
 import sys
 import unittest
