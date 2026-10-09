@@ -10,7 +10,7 @@ from agents.schemas import BatchValidationError
 from backend import database, embeddings, llm_client, retrieval, vector_store
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-st.set_page_config(page_title="AI Response Validation System ", page_icon="AV", layout="wide")
+st.set_page_config(page_title="AI Response Validation System - Milestone 4", page_icon="AV", layout="wide")
 st.markdown(
     """
 <style>
@@ -324,7 +324,7 @@ def load_dashboard_records():
         st.error(f"Stored evaluations could not be read: {exc}")
         return []
 def dashboard_filter_controls(records):
-    
+    """The M4.1 filter bar. Every option offered exists in the data."""
     options = dashboard_analytics.filter_options(records)
     with st.expander("Filters", expanded=False):
         first, second = st.columns(2)
@@ -653,5 +653,86 @@ def render_history():
             st.write(f"**Completeness:** {payload['completeness']['score']}/5")
             st.write(f"**Hallucination:** {payload['hallucination']['hallucination_status']}")
             st.write(f"**Detailed reasoning:** {payload['verdict']['reasoning']}")
-
-
+def render_knowledge_base(init_info):
+    page_intro("Evidence layer", "Knowledge Base", "Live information from the current retrieval and embedding services.")
+    cols = st.columns(4)
+    cols[0].metric("Vector Store", init_info["vector_backend"])
+    cols[1].metric("Embedding Model", init_info["embedding_model"])
+    cols[2].metric("Embedding Mode", init_info["embedding_mode"])
+    cols[3].metric("Documents / Chunks", init_info["total_chunks"])
+    if init_info["error"]:
+        st.warning(f"Retrieval initialization warning: {init_info['error']}")
+    else:
+        st.success("Retrieval is available.")
+    st.markdown("### Retrieved Evidence Preview")
+    preview_question = st.text_input("Question to retrieve evidence for", placeholder="Enter a question from the knowledge base")
+    if st.button("Retrieve Evidence"):
+        if not preview_question.strip():
+            st.error("Enter a question before retrieving evidence.")
+        else:
+            try:
+                items = [type("Evidence", (), item) for item in retrieval.retrieve_evidence(preview_question, top_k=3)]
+                render_evidence(items)
+            except Exception as exc:
+                st.error(f"Retrieval failed: {exc}")
+def render_system_status(init_info):
+    page_intro("Diagnostics", "Testing / System Status", "Current component availability reported by the running application.")
+    checks = [
+        ("ChromaDB", "Operational" if init_info["vector_backend"] == "chromadb" else "Fallback active"),
+        ("Sentence Transformers", "Operational" if init_info["embedding_mode"] == "sentence-transformers" else "Fallback active"),
+        ("Evaluation Engine", "LLM mode" if llm_client.is_llm_available() else "Deterministic mode"),
+        ("Tests", "Run from the project test command"),
+        ("RAG Status", "Operational" if init_info["total_chunks"] > 0 and not init_info["error"] else "Attention required"),
+    ]
+    cols = st.columns(5)
+    for col, (label, value) in zip(cols, checks):
+        col.metric(label, value)
+    if init_info["error"]:
+        st.error(init_info["error"])
+    st.code("python -m unittest discover -s tests -t . -v", language="bash")
+def render_about():
+    page_intro("Documentation", "About Project", "The complete Milestone 3 AI Response Validation System.")
+    st.markdown("""
+### Project purpose
+Evaluate AI-generated answers against supplied or retrieved evidence without inventing supporting material.
+### Objectives
+- Separate relevance, factual accuracy, completeness, and claim-level hallucination checks.
+- Preserve traceable evidence and detailed reasoning for each outcome.
+- Support reliable single and CSV batch evaluation with explicit final scoring and verdicts.
+### Technology stack
+Python, Streamlit, SQLite, ChromaDB, Sentence Transformers, Hugging Face datasets, and an optional Anthropic judge mode with deterministic offline fallbacks.
+### Milestone 3 capabilities
+Completeness judging, weighted scoring, critical verdict rules, batch evaluation, source information handling, stored evaluation history, evidence retrieval, and system diagnostics.
+### System architecture summary
+Input is validated and stored, RAG retrieves reference evidence, the orchestrator invokes the four independent judges, and the Verdict Agent normalizes and combines their outputs. Batch evaluation reuses the same orchestrator for every valid row.
+""")
+with st.spinner("Preparing the knowledge base..."):
+    init_info = initialize_system()
+with st.sidebar:
+    st.markdown("## AI Validation")
+    st.caption("Milestone 3 workspace")
+    page = st.radio(
+        "Navigation",
+        ["Dashboard", "Single Evaluation", "Batch Evaluation", "Evaluation History", "Knowledge Base", "Testing / System Status", "About Project"],
+        index=1,
+        label_visibility="collapsed",
+    )
+    st.markdown("---")
+    st.caption(f"Vector store: {init_info['vector_backend']}")
+    st.caption(f"Embeddings: {init_info['embedding_mode']}")
+    st.caption(f"Stored evaluations: {database.get_dashboard_statistics()['total_evaluations']}")
+render_header(init_info)
+pages = {
+    "Dashboard": render_dashboard,
+    "Single Evaluation": render_single_evaluation,
+    "Batch Evaluation": render_batch_evaluation,
+    "Evaluation History": render_history,
+    "Knowledge Base": lambda: render_knowledge_base(init_info),
+    "Testing / System Status": lambda: render_system_status(init_info),
+    "About Project": render_about,
+}
+if page is None:
+    for render in pages.values():
+        render()
+else:
+    pages[page]()
