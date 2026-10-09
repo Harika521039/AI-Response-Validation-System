@@ -215,6 +215,5 @@ GitHub: [Harika521039](https://github.com/Harika521039)
 
 ## License
 
-Add a `LICENSE` file if your project has a chosen open-source license. Use the license that matches your project's actual licensing terms.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
----
