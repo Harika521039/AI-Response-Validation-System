@@ -701,7 +701,7 @@ Evaluate AI-generated answers against supplied or retrieved evidence without inv
 - Support reliable single and CSV batch evaluation with explicit final scoring and verdicts.
 ### Technology stack
 Python, Streamlit, SQLite, ChromaDB, Sentence Transformers, Hugging Face datasets, and an optional Anthropic judge mode with deterministic offline fallbacks.
-### Milestone 3 capabilities
+### Milestone  capabilities
 Completeness judging, weighted scoring, critical verdict rules, batch evaluation, source information handling, stored evaluation history, evidence retrieval, and system diagnostics.
 ### System architecture summary
 Input is validated and stored, RAG retrieves reference evidence, the orchestrator invokes the four independent judges, and the Verdict Agent normalizes and combines their outputs. Batch evaluation reuses the same orchestrator for every valid row.
@@ -710,7 +710,7 @@ with st.spinner("Preparing the knowledge base..."):
     init_info = initialize_system()
 with st.sidebar:
     st.markdown("## AI Validation")
-    st.caption("Milestone 3 workspace")
+  
     page = st.radio(
         "Navigation",
         ["Dashboard", "Single Evaluation", "Batch Evaluation", "Evaluation History", "Knowledge Base", "Testing / System Status", "About Project"],
